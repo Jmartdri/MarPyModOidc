@@ -4,9 +4,9 @@ It handle a basic auth and can pass token to backend service
 
 Requirements
 ============
-* Mod-python `[2]`_
-* Python 3.x
-* Apache 2.x
+* Mod-python +3.3
+* Python +2.6
+* Apache +2.x
 
 Installation
 ============

@@ -24,3 +24,6 @@
 
 #logs
 logs/
+
+#some files
+files.txt
