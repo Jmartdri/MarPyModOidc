@@ -1,0 +1,26 @@
+# Visual Studio Code
+.vscode
+.factorypath
+
+# IntelliJ
+.idea
+*.ipr
+*.iml
+*.iws
+
+# Vim
+*.swp
+*.swo
+
+# OSX
+.DS_Store
+
+# patch
+*.orig
+*.rej
+
+# Local environment
+.env
+
+#logs
+logs/
