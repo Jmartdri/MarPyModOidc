@@ -27,3 +27,10 @@ logs/
 
 #some files
 files.txt
+
+# build file
+build
+*_pycache*
+
+# db test file
+*session.dbm*

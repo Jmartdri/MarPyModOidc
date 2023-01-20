@@ -84,7 +84,7 @@ class Oidc:
         except UnicodeEncodeError as e:
             self.req.log_error(
                     '%s - UnicodeEncodeError :  %s ' %
-                    (self.base_log, str(e)), apache.APLOG_WARN)
+                    (self.base_log, str(e)), apache.APLOG_ERR)
             return ""
 
     def decode_basic_authorization(self, raw):

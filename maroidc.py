@@ -3,17 +3,17 @@
 
 # /!\ this code is inspired from https://github.com/Legrandin/PyAuthenNTLM2
 
-from mod_python import apache, Session
+from mod_python import apache
 from MarPyModOidc.oidc import Oidc
+from MarPyModOidc.session import Session
 
 def isUserSessionEqualUserAuth(userAuth, userSession):
     return userAuth and userSession and userAuth == userSession
 
-
 def authenhandler(req):
     # The request handler called by mod_python in the authentication phase
 
-    session = Session.Session(req, lock=0)
+    session = Session(req)
 
     base_log = "[ModPyOidc] session : { id :  %s , new? : %s, len : %s}, con : %s, %s %s" % (
         session.id()[:6], session.is_new(),  len(session), req.connection.id, req.method, req.unparsed_uri[-20:])
