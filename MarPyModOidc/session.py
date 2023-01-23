@@ -88,15 +88,19 @@ class BaseSession(dict):
 
     def make_cookie(self):
         c = Cookie.Cookie(COOKIE_NAME, self._sid)
+        
+        docroot = self._req.document_root()
         dirpath = self._req.hlist.directory
-        if dirpath:
-            docroot = self._req.document_root()
-            c.path = dirpath[len(docroot):]
+
+        rdirpath = dirpath[len(docroot):]
+
+        if rdirpath :
+            c.path = '/%s/'%filter(lambda x : not not x, self._req.uri.split('/'))[0]
         else:
             c.path = '/'
+        
+        c.expires = self._ttl
 
-        if not c.path or not self._req.uri.startswith(c.path):
-            c.path = '/'
         return c
 
     def new_sid(self):
