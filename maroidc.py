@@ -6,6 +6,7 @@
 from mod_python import apache
 from MarPyModOidc.oidc import Oidc
 from MarPyModOidc.session import Session
+import time
 
 def isUserSessionEqualUserAuth(userAuth, userSession):
     return userAuth and userSession and userAuth == userSession
@@ -15,8 +16,8 @@ def authenhandler(req):
 
     session = Session(req)
 
-    base_log = "[ModPyOidc] session : { id :  %s , new? : %s, len : %s}, con : %s, %s %s" % (
-        session.id()[:6], session.is_new(),  len(session), req.connection.id, req.method, req.unparsed_uri[-20:])
+    base_log = "[ModPyOidc] session : { id :  %s , new? : %s}, con : %s => %s %s" % (
+        session.id()[:6], session.is_new(), req.connection.id, req.method, req.unparsed_uri[-20:])
 
     try:
         oidc = Oidc(req, session, base_log)
