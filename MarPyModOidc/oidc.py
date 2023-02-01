@@ -212,7 +212,6 @@ class Oidc:
 
     def setAuthorizationHeaderToken(self, token):
         self.req.headers_in["Authorization"] = "Bearer %s"%str(token)
-        self.req.headers_out["Authorization"] = "Bearer %s"%str(token)
 
     def saveOidcAuthorizationOnSession(self, username, token_response):
         self.clean_session()

@@ -70,8 +70,9 @@ class BaseSession(dict):
             self._sid = self.new_sid()
             self._ttl = int(time.time()) + CACHE_TTL
             self.save()
-            Cookie.add_cookie(req, self.make_cookie())
-            req.connection.notes['sid'] = self._sid
+            cookie = self.make_cookie()
+            Cookie.add_cookie(req, cookie)
+            #req.connection.notes['sid'] = self._sid
             self.unlock()
             self._isnew = 1
         else:
@@ -90,12 +91,23 @@ class BaseSession(dict):
         c = Cookie.Cookie(COOKIE_NAME, self._sid)
         
         docroot = self._req.document_root()
-        dirpath = self._req.hlist.directory
+        directory = self._req.hlist.directory
+        location = self._req.hlist.location
 
-        rdirpath = dirpath[len(docroot):]
 
-        if rdirpath :
-            c.path = '/%s/'%filter(lambda x : not not x, self._req.uri.split('/'))[0]
+        if directory :
+            alias = directory[len(docroot):]
+            if alias :
+                c.path = '/%s/'%filter(lambda x : not not x, self._req.uri.split('/'))[0]
+            else:
+                c.path = '/'
+        
+        elif location :
+            lenlocation = str(location).split('/')
+            if lenlocation > 1:
+                c.path = '/%s/'%filter(lambda x : not not x, self._req.uri.split('/'))[0]
+            else:
+               c.path = '/'
         else:
             c.path = '/'
         
